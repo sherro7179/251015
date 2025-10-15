@@ -3,14 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>현재 시각</title>
+    <title>World Pulse Timer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main>
-        <h1>현재 시각</h1>
-        <p id="date" aria-live="polite"></p>
-        <p id="time" class="time" aria-live="polite">--:--:--</p>
+    <div class="world-map" aria-hidden="true"></div>
+    <main class="dashboard">
+        <header class="dashboard__header">
+            <h1 class="dashboard__title" data-i18n="title">세계 펄스 타이머</h1>
+            <div class="dashboard__actions">
+                <div class="language-switch" role="group" aria-label="언어 선택">
+                    <button type="button" class="language-switch__button is-active" data-lang="ko">KO</button>
+                    <button type="button" class="language-switch__button" data-lang="en">EN</button>
+                </div>
+                <div class="timezone-select">
+                    <label for="timezone-select" data-i18n="timezoneLabel">타임존</label>
+                    <select id="timezone-select" aria-live="polite"></select>
+                </div>
+            </div>
+        </header>
+
+        <section class="clock" aria-live="polite">
+            <p id="date" class="clock__date"></p>
+            <div class="clock__primary">
+                <span class="clock__segment" id="hours">--</span>
+                <span class="clock__separator">:</span>
+                <span class="clock__segment" id="minutes">--</span>
+                <span class="clock__separator">:</span>
+                <span class="clock__segment" id="seconds">--</span>
+                <span class="clock__session" id="session">AM</span>
+            </div>
+            <div class="clock__milliseconds">
+                <span class="clock__label" data-i18n="milliseconds">밀리초</span>
+                <span class="clock__ms" id="milliseconds">000</span>
+            </div>
+        </section>
+
+        <section class="city-grid" aria-live="polite">
+            <h2 class="city-grid__title" data-i18n="citiesTitle">주요 도시 반낮</h2>
+            <div class="city-grid__list" id="city-cards"></div>
+        </section>
     </main>
     <script src="script.js"></script>
 </body>
