@@ -1,0 +1,40 @@
+:root {
+    color-scheme: light dark;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, #4b6cb7, #182848);
+    color: #f8f9fa;
+}
+
+main {
+    text-align: center;
+    padding: 2rem 3rem;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+    letter-spacing: 0.1rem;
+}
+
+#date {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.time {
+    margin-top: 0.75rem;
+    font-size: clamp(3rem, 10vw, 5rem);
+    letter-spacing: 0.2rem;
+}
