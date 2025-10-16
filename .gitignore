@@ -1,0 +1,12 @@
+# Virtual environments
+.venv/
+
+# Generated quiz data
+car_picker/data/
+car_picker/static/thumbs/
+car_picker/_state/
+car_picker/metadata/
+
+# Python cache
+__pycache__/
+*.pyc

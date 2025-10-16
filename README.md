@@ -1,27 +1,71 @@
-# World Pulse Timer
+# Workspace Overview
 
-세계 주요 도시의 시간을 한눈에 살펴볼 수 있는 반응형 타이머입니다. 초 단위 이하의 밀리초까지 표시하고, 타임존과 언어를 즉시 전환할 수 있으며 세계 지도 배경에 맞춰 지역별 낮/밤 상태를 시각적으로 확인할 수 있습니다.
+This repository currently contains two independent front-end experiences:
 
-## 주요 기능
-- **AM/PM 디지털 시계**: 선택한 타임존 기준으로 시/분/초와 밀리초를 실시간으로 표기합니다.
-- **임팩트 애니메이션**: 초·분이 바뀔 때마다 타격감 있는 펄스 애니메이션이 재생됩니다.
-- **언어 전환**: 상단의 KO/EN 버튼으로 한국어·영어 인터페이스를 즉시 바꿀 수 있습니다.
-- **타임존 선택**: 드롭다운에서 원하는 도시(타임존)를 선택하면 본 타이머 기준이 즉시 변경됩니다.
-- **세계 지도 & 낮/밤**: 흐릿한 세계 지도 배경과 함께 주요 도시 카드에서 낮/밤 상태를 함께 제공합니다.
-- **주요 도시 스냅샷**: 런던, 뉴욕, 두바이 등 6개 도시의 현재 시각과 상태를 동시에 모니터링할 수 있습니다.
+1. **World Pulse Timer** – a redesigned world clock dashboard with language/time zone switching and impact animations.
+2. **Car Picker Quiz** – a Streamlit application that quizzes players on car make/model/year using the picture dataset generated from the _The Car Connection_ scraper.
 
-## 사용 방법
-1. `timer/index.html`을 브라우저에서 열면 타이머가 즉시 실행됩니다.
-2. 우측 상단 언어 버튼(KO/EN)으로 인터페이스 언어를 전환합니다.
-3. 타임존 드롭다운에서 원하는 도시를 선택하면 메인 타이머가 해당 지역 기준으로 갱신됩니다.
-4. 주요 도시 카드에서 다른 지역의 낮/밤 상태와 시간을 함께 확인해 보세요.
+Both projects share the same root workspace but live in different folders. The sections below describe how to run each app and how the code is organised.
 
-## 구조
-- `timer/index.html`: UI 마크업과 언어/타임존 컨트롤을 정의합니다.
-- `timer/style.css`: 세계 지도 배경, 타격감 있는 애니메이션, 카드 레이아웃 등을 담당합니다.
-- `timer/script.js`: 언어 전환, 타임존 변경, 애니메이션, 도시 카드 업데이트를 관리합니다.
-- `timer/assets/world-map.svg`: 대시보드 배경으로 사용되는 심플한 SVG 세계 지도입니다.
+---
 
-## 참고
-- 모든 기능은 브라우저 내장 `Intl.DateTimeFormat` API를 사용하므로 별도 빌드/런타임이 필요하지 않습니다.
-- 최신 크롬/엣지/사파리에서 테스트를 권장하며, 초당 60fps 갱신으로 밀리초 표시가 자연스럽게 유지됩니다.
+## World Pulse Timer
+
+- Open `timer/index.html` in any modern browser (Chrome, Edge, Safari are recommended).
+- The dashboard highlights the selected time zone (default: local) with AM/PM formatting, millisecond precision, and punchy number transitions when hours/minutes/seconds change.
+- KO/EN buttons swap UI language instantly.
+- The world map background and city cards show six major cities with day/night status relative to the current moment.
+
+### File Map
+- `timer/index.html` – structural HTML, controls, and semantic regions.
+- `timer/style.css` – glassmorphism-inspired visuals, animated transitions, and world map overlay.
+- `timer/script.js` – language & timezone switching logic, animation triggers, city card updates.
+- `timer/assets/world-map.svg` – light-weight SVG backdrop.
+
+---
+
+## Car Picker Quiz (Streamlit)
+
+### Prerequisites
+- Python 3.9+
+- Install dependencies from `car_picker/requirements.txt`
+  ```bash
+  pip install -r car_picker/requirements.txt
+  ```
+- Place the scraped images inside `car_picker/data/`. The quiz expects the original naming scheme from the [predicting-car-price-from-scraped-data](https://github.com/nicolas-gervais/predicting-car-price-from-scraped-data/tree/master/picture-scraper) project (`Make_Model_Year_..._XYZ.jpg`).
+
+### Running the App
+```bash
+streamlit run car_picker/app.py
+```
+
+### Feature Highlights
+- **64k image index**: the first launch scans `car_picker/data/`, builds a duplicate-free metadata cache (`car_picker/metadata/index.json`), and reuses it on subsequent runs. You can rebuild the cache from the sidebar if the dataset changes.
+- **Difficulty modes**:
+  - `하 (easy)`: guess the manufacturer only.
+  - `중 (medium)`: guess manufacturer + model.
+  - `상 (hard)` *(default)*: guess manufacturer + model + year with 10-way multiple choice.
+- **Session design**: 20-question default (5–40 configurable), no partial credit, no repeated cars inside a session, and real-time score feedback.
+- **Cards-first UI**: every question shows a thumbnail (512px max, generated on demand under `car_picker/static/thumbs/`) with two-column answer cards.
+- **History log**: completed sessions are appended to `car_picker/_state/sessions.json` so multiple users on the same host can track recent scores.
+
+### Code Structure
+- `car_picker/app.py` – Streamlit UI, sidebar controls, session management, and feedback flow.
+- `car_picker/config.py` – central paths and constants (data directory, cache paths, defaults).
+- `car_picker/quiz/parser.py` – filename parser and index builder that deduplicates on metadata key.
+- `car_picker/quiz/engine.py` – quiz logic, distractor generation, and 10-option assembly per difficulty.
+- `car_picker/quiz/utils.py` – helpers for thumbnail creation, deterministic shuffling, and atomic writes.
+- `car_picker/quiz/store.py` – lightweight session history persistence.
+- `car_picker/requirements.txt` – minimal dependency list (`streamlit`, `Pillow`).
+
+### Workflow Tips
+- The first index build can take a few minutes for all 64,467 images. The spinner stays active during the process.
+- Thumbnails are generated lazily when an image is first displayed; keep `car_picker/static/thumbs/` writable.
+- Use the sidebar buttons to restart a session or rebuild metadata when you add/remove images.
+
+---
+
+## Repository Status
+
+- Timer redesign committed as `[WIP] Redesign timer dashboard`.
+- Car Picker Quiz implementation is currently in-progress and should be reviewed/tested before tagging a release.
