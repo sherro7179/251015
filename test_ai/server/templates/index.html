@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>지출결의 사전 검토 테스트 서버</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>지출결의 · 품의서 사전 검토</h1>
+      <p>
+        테스트용 로컬 서버입니다. 규정과 양식을 기반으로 업로드한 문서를 빠르게
+        점검하세요.
+      </p>
+    </header>
+    <main>
+      <section class="card">
+        <h2>문서 업로드</h2>
+        <form id="upload-form" enctype="multipart/form-data">
+          <input
+            id="document"
+            name="document"
+            type="file"
+            accept=".docx,.txt,.md"
+            required
+          />
+          <button id="submit-btn" type="submit">분석하기</button>
+          <span id="status-text"></span>
+        </form>
+        <div id="result"></div>
+      </section>
+
+      <section class="content-grid">
+        <article class="card">
+          <h2>규정 참고 (샘플)</h2>
+          <pre>{{ regulation_text|e }}</pre>
+        </article>
+        <article class="card">
+          <h2>작성 양식 (샘플)</h2>
+          <pre>{{ template_text|e }}</pre>
+        </article>
+      </section>
+    </main>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
