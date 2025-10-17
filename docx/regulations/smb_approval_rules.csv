@@ -1,0 +1,15 @@
+﻿rule_id,prefix,category,category_label,requirement,details,source
+RULE-ATT-001,ATT,attachments,Attachment requirements,필수 첨부,사업자등록증 사본,필수 첨부: 사업자등록증 사본
+RULE-ATT-002,ATT,attachments,Attachment requirements,필수 첨부,통장 사본 또는 계좌 확인서,필수 첨부: 통장 사본 또는 계좌 확인서
+RULE-ATT-003,ATT,attachments,Attachment requirements,조건부 첨부,세금계산서(발행 대상인 경우),조건부 첨부: 세금계산서(발행 대상인 경우)
+RULE-ATT-004,ATT,attachments,Attachment requirements,조건부 첨부,견적서/발주서(발주/구매 건),조건부 첨부: 견적서/발주서(발주/구매 건)
+RULE-ATT-005,ATT,attachments,Attachment requirements,조건부 첨부,계약서(금액 기준 초과 시),조건부 첨부: 계약서(금액 기준 초과 시)
+RULE-SIGN-001,SIGN,signatures,Signature and seal requirements,작성자/검토자/승인자 서명 및 날짜 필수,,작성자/검토자/승인자 서명 및 날짜 필수
+RULE-SIGN-002,SIGN,signatures,Signature and seal requirements,법인인감/직인,계약서/위임장 첨부 시 날인 필요,법인인감/직인: 계약서/위임장 첨부 시 날인 필요
+RULE-FMT-001,FMT,formatting,Formatting rules,날짜 형식,YYYY-MM-DD (예: 2025-10-17),날짜 형식: YYYY-MM-DD (예: 2025-10-17)
+RULE-FMT-002,FMT,formatting,Formatting rules,"금액은 KRW 기준, 음수 불가, 천 단위 구분 허용",,"금액은 KRW 기준, 음수 불가, 천 단위 구분 허용"
+RULE-FMT-003,FMT,formatting,Formatting rules,사업자등록번호 형식,000-00-00000,사업자등록번호 형식: 000-00-00000
+RULE-THR-001,THR,thresholds,Threshold-dependent requirements,"10,000,000 KRW 초과 시 계약서 필수 및 예산 코드 필수",,"10,000,000 KRW 초과 시 계약서 필수 및 예산 코드 필수"
+RULE-DUE-001,DUE,scheduling,Date/deadline rules,승인 요청일은 작성일과 같거나 이후 날짜여야 함,,승인 요청일은 작성일과 같거나 이후 날짜여야 함
+RULE-CLS-001,CLS,classification,Document classification rules,문서 유형은 발주/지출/계약 중 하나여야 함,,문서 유형은 발주/지출/계약 중 하나여야 함
+RULE-EXC-001,EXC,exceptions,Exception handling rules,예외 승인 시 예외 사유서 및 추가 승인자 서명 필요,,예외 승인 시 예외 사유서 및 추가 승인자 서명 필요

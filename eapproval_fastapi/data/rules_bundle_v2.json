@@ -1,0 +1,241 @@
+{
+  "version": "v2.0",
+  "updated_at": "2025-10-17T09:00:00Z",
+  "description": "Simplified rules extracted from 전자결재 샘플 규정 패키지 v2.",
+  "patterns": {
+    "doc_no": "^(EAPR|EXP|EXR|PR|PO|LV|OFF|NDA|POL)-(20\\d{2})(0[1-9]|1[0-2])([0-2]\\d|3[01])-(\\d{4})$"
+  },
+  "doc_types": [
+    {"doc_type": "EAPR", "label": "전자결재 운영 규정"},
+    {"doc_type": "EXP", "label": "지출 결의서"},
+    {"doc_type": "EXR", "label": "지출 품의서(사전 품의)"},
+    {"doc_type": "PR", "label": "구매 요청서"},
+    {"doc_type": "PO", "label": "발주서"},
+    {"doc_type": "LV", "label": "휴가 신청서"},
+    {"doc_type": "OFF", "label": "공문 발신"},
+    {"doc_type": "NDA", "label": "보안 서약/NDA"},
+    {"doc_type": "POL", "label": "내부 규정 제정"}
+  ],
+  "approval_requirements": [
+    {
+      "doc_type": "EXR",
+      "min_amount": 0,
+      "max_amount": 1000000,
+      "required_roles": ["ROLE_LEAD", "ROLE_FIN"],
+      "allow_delegation_for": ["ROLE_LEAD"]
+    },
+    {
+      "doc_type": "EXR",
+      "min_amount": 1000001,
+      "max_amount": 10000000,
+      "required_roles": ["ROLE_LEAD", "ROLE_HEAD", "ROLE_FIN"],
+      "allow_delegation_for": ["ROLE_LEAD"]
+    },
+    {
+      "doc_type": "EXR",
+      "min_amount": 10000001,
+      "max_amount": null,
+      "required_roles": ["ROLE_LEAD", "ROLE_HEAD", "ROLE_FIN", "ROLE_EXE"],
+      "allow_delegation_for": ["ROLE_LEAD"]
+    },
+    {
+      "doc_type": "EXP",
+      "min_amount": 0,
+      "max_amount": 1000000,
+      "required_roles": ["ROLE_LEAD", "ROLE_FIN"],
+      "allow_delegation_for": ["ROLE_LEAD"]
+    },
+    {
+      "doc_type": "EXP",
+      "min_amount": 1000001,
+      "max_amount": null,
+      "required_roles": ["ROLE_LEAD", "ROLE_HEAD", "ROLE_FIN"],
+      "allow_delegation_for": ["ROLE_LEAD"]
+    },
+    {
+      "doc_type": "PR",
+      "min_amount": 0,
+      "max_amount": 5000000,
+      "required_roles": ["ROLE_LEAD", "ROLE_PUR", "ROLE_FIN"],
+      "allow_delegation_for": ["ROLE_LEAD"]
+    },
+    {
+      "doc_type": "PR",
+      "min_amount": 5000001,
+      "max_amount": 50000000,
+      "required_roles": ["ROLE_LEAD", "ROLE_HEAD", "ROLE_PUR", "ROLE_FIN"],
+      "allow_delegation_for": ["ROLE_LEAD"]
+    },
+    {
+      "doc_type": "PR",
+      "min_amount": 50000001,
+      "max_amount": null,
+      "required_roles": ["ROLE_LEAD", "ROLE_HEAD", "ROLE_PUR", "ROLE_FIN", "ROLE_EXE"],
+      "allow_delegation_for": []
+    },
+    {
+      "doc_type": "PO",
+      "min_amount": 0,
+      "max_amount": null,
+      "required_roles": ["ROLE_PUR", "ROLE_FIN"],
+      "allow_delegation_for": ["ROLE_PUR"]
+    },
+    {
+      "doc_type": "OFF",
+      "min_amount": 0,
+      "max_amount": null,
+      "required_roles": ["ROLE_LEAD", "ROLE_EXE"],
+      "allow_delegation_for": ["ROLE_LEAD"]
+    },
+    {
+      "doc_type": "NDA",
+      "min_amount": 0,
+      "max_amount": null,
+      "required_roles": ["ROLE_LEAD", "ROLE_LGL", "ROLE_EXE"],
+      "allow_delegation_for": ["ROLE_LEAD"]
+    },
+    {
+      "doc_type": "LV",
+      "min_amount": 0,
+      "max_amount": 0,
+      "required_roles": ["ROLE_LEAD"],
+      "allow_delegation_for": ["ROLE_LEAD"]
+    },
+    {
+      "doc_type": "POL",
+      "min_amount": 0,
+      "max_amount": null,
+      "required_roles": ["ROLE_LEAD", "ROLE_HEAD", "ROLE_FIN", "ROLE_EXE"],
+      "allow_delegation_for": ["ROLE_LEAD"]
+    }
+  ],
+  "attachment_requirements": [
+    {
+      "doc_type": "EXR",
+      "conditions": [
+        {
+          "type": "quote",
+          "min_count": 2,
+          "note": "견적서 2부 이상(원칙 3부)"
+        },
+        {
+          "type": "plan",
+          "min_count": 1,
+          "required_risk_flags": ["event"],
+          "note": "행사 기획인 경우 계획서 필요"
+        }
+      ]
+    },
+    {
+      "doc_type": "EXP",
+      "conditions": [
+        {
+          "type": "receipt",
+          "min_count": 1,
+          "note": "세금계산서/영수증 첨부"
+        },
+        {
+          "type": "card_statement",
+          "min_count": 1,
+          "note": "법인카드 사용 시 승인내역"
+        }
+      ]
+    },
+    {
+      "doc_type": "PR",
+      "conditions": [
+        {
+          "type": "quote",
+          "min_count": 3,
+          "note": "3자 견적 원칙"
+        },
+        {
+          "type": "security_review",
+          "min_count": 1,
+          "required_risk_flags": ["it_saas"],
+          "note": "IT/SaaS 도입 시 보안 검토"
+        },
+        {
+          "type": "legal_review",
+          "min_count": 1,
+          "required_risk_flags": ["personal_data"],
+          "note": "개인정보 처리 시 법무 검토"
+        }
+      ]
+    },
+    {
+      "doc_type": "PO",
+      "conditions": [
+        {
+          "type": "contract",
+          "min_count": 1,
+          "note": "계약서 또는 단가계약 참조"
+        },
+        {
+          "type": "inspection",
+          "min_count": 1,
+          "note": "검수서/세금계산서 연계"
+        }
+      ]
+    },
+    {
+      "doc_type": "OFF",
+      "conditions": [
+        {
+          "type": "recipient_list",
+          "min_count": 1,
+          "note": "대량 발송 시 수신처 리스트"
+        }
+      ]
+    },
+    {
+      "doc_type": "NDA",
+      "conditions": [
+        {
+          "type": "nda_original",
+          "min_count": 1,
+          "note": "NDA 원문"
+        },
+        {
+          "type": "dpa",
+          "min_count": 1,
+          "required_risk_flags": ["personal_data"],
+          "note": "개인정보 포함 시 DPA"
+        }
+      ]
+    },
+    {
+      "doc_type": "LV",
+      "conditions": [
+        {
+          "type": "medical_certificate",
+          "min_count": 1,
+          "required_risk_flags": ["leave_sick"],
+          "note": "병가 시 진단서"
+        },
+        {
+          "type": "family_event",
+          "min_count": 1,
+          "required_risk_flags": ["leave_family"],
+          "note": "경조사 증빙"
+        }
+      ]
+    }
+  ],
+  "risk_requirements": [
+    {
+      "risk_flag": "personal_data",
+      "doc_types": ["PR", "NDA", "EXR"],
+      "required_roles": ["ROLE_SEC", "ROLE_LGL"],
+      "required_attachments": ["dpa"],
+      "note": "개인정보 처리 시 보안/법무 승인 및 DPA 필수"
+    },
+    {
+      "risk_flag": "it_saas",
+      "doc_types": ["PR", "EXR"],
+      "required_roles": ["ROLE_SEC"],
+      "required_attachments": ["security_review"],
+      "note": "SaaS 도입 시 보안 검토 필수"
+    }
+  ]
+}

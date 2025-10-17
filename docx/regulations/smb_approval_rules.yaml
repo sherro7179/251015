@@ -1,0 +1,101 @@
+version: 1
+generated_from: smb_approval_rules.docx
+rules:
+  - id: RULE-ATT-001
+    category: attachments
+    category_label: Attachment requirements
+    prefix: ATT
+    requirement: "필수 첨부"
+    details: "사업자등록증 사본"
+    source: "필수 첨부: 사업자등록증 사본"
+  - id: RULE-ATT-002
+    category: attachments
+    category_label: Attachment requirements
+    prefix: ATT
+    requirement: "필수 첨부"
+    details: "통장 사본 또는 계좌 확인서"
+    source: "필수 첨부: 통장 사본 또는 계좌 확인서"
+  - id: RULE-ATT-003
+    category: attachments
+    category_label: Attachment requirements
+    prefix: ATT
+    requirement: "조건부 첨부"
+    details: "세금계산서(발행 대상인 경우)"
+    source: "조건부 첨부: 세금계산서(발행 대상인 경우)"
+  - id: RULE-ATT-004
+    category: attachments
+    category_label: Attachment requirements
+    prefix: ATT
+    requirement: "조건부 첨부"
+    details: "견적서/발주서(발주/구매 건)"
+    source: "조건부 첨부: 견적서/발주서(발주/구매 건)"
+  - id: RULE-ATT-005
+    category: attachments
+    category_label: Attachment requirements
+    prefix: ATT
+    requirement: "조건부 첨부"
+    details: "계약서(금액 기준 초과 시)"
+    source: "조건부 첨부: 계약서(금액 기준 초과 시)"
+  - id: RULE-SIGN-001
+    category: signatures
+    category_label: Signature and seal requirements
+    prefix: SIGN
+    requirement: "작성자/검토자/승인자 서명 및 날짜 필수"
+    details: ""
+    source: "작성자/검토자/승인자 서명 및 날짜 필수"
+  - id: RULE-SIGN-002
+    category: signatures
+    category_label: Signature and seal requirements
+    prefix: SIGN
+    requirement: "법인인감/직인"
+    details: "계약서/위임장 첨부 시 날인 필요"
+    source: "법인인감/직인: 계약서/위임장 첨부 시 날인 필요"
+  - id: RULE-FMT-001
+    category: formatting
+    category_label: Formatting rules
+    prefix: FMT
+    requirement: "날짜 형식"
+    details: "YYYY-MM-DD (예: 2025-10-17)"
+    source: "날짜 형식: YYYY-MM-DD (예: 2025-10-17)"
+  - id: RULE-FMT-002
+    category: formatting
+    category_label: Formatting rules
+    prefix: FMT
+    requirement: "금액은 KRW 기준, 음수 불가, 천 단위 구분 허용"
+    details: ""
+    source: "금액은 KRW 기준, 음수 불가, 천 단위 구분 허용"
+  - id: RULE-FMT-003
+    category: formatting
+    category_label: Formatting rules
+    prefix: FMT
+    requirement: "사업자등록번호 형식"
+    details: "000-00-00000"
+    source: "사업자등록번호 형식: 000-00-00000"
+  - id: RULE-THR-001
+    category: thresholds
+    category_label: Threshold-dependent requirements
+    prefix: THR
+    requirement: "10,000,000 KRW 초과 시 계약서 필수 및 예산 코드 필수"
+    details: ""
+    source: "10,000,000 KRW 초과 시 계약서 필수 및 예산 코드 필수"
+  - id: RULE-DUE-001
+    category: scheduling
+    category_label: Date/deadline rules
+    prefix: DUE
+    requirement: "승인 요청일은 작성일과 같거나 이후 날짜여야 함"
+    details: ""
+    source: "승인 요청일은 작성일과 같거나 이후 날짜여야 함"
+  - id: RULE-CLS-001
+    category: classification
+    category_label: Document classification rules
+    prefix: CLS
+    requirement: "문서 유형은 발주/지출/계약 중 하나여야 함"
+    details: ""
+    source: "문서 유형은 발주/지출/계약 중 하나여야 함"
+  - id: RULE-EXC-001
+    category: exceptions
+    category_label: Exception handling rules
+    prefix: EXC
+    requirement: "예외 승인 시 예외 사유서 및 추가 승인자 서명 필요"
+    details: ""
+    source: "예외 승인 시 예외 사유서 및 추가 승인자 서명 필요"

@@ -22,7 +22,23 @@ Both projects share the same root workspace but live in different folders. The s
 - `timer/script.js` – language & timezone switching logic, animation triggers, city card updates.
 - `timer/assets/world-map.svg` – light-weight SVG backdrop.
 
----
+## SMB Precheck Assets
+
+- `docx/regulations/smb_approval_rules.docx` ??narrative regulation source defining RULE-ATT/SIGN/FMT/THR/DUE/CLS/EXC.
+- `docx/regulations/smb_approval_rules.yaml` ??machine-readable rule export for orchestration or validation services.
+- `docx/regulations/smb_approval_rules.csv` ??tabular rule export (UTF-8 with BOM) for spreadsheet ingestion.
+- `docx/examples/submission_template.xlsx` ??standardised submission columns with row 2 containing descriptions.
+- `docx/examples/sample_submission.xlsx` ??template-compliant sample row demonstrating required attachments & signatures.
+- `vba/modules/*.bas` ??sheet 기반 자동화(UI) 코드(v0.1). 주요 엔트리 포인트 매크로:
+  - `Command_SelectFolderPath`
+  - `Command_UpdateFiles`
+  - `Command_IOChange`
+  - `Command_ValueFind`
+  - `Command_ChangeValue`
+  - `Command_ScriptMoveFolderPath`
+- `tools/smb_precheck.py` ??Python CLI to mirror the VBA automation (`pip install openpyxl` 필요).
+
+각 버튼/명령 실행 시 진행률·예상 시간, 성공/실패 목록, 오류 로그(`vba/log/SMB_*.log`)가 자동 처리됩니다.
 
 ## Car Picker Quiz (Streamlit)
 

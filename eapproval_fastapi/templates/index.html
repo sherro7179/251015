@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}AI 사전 검토 결재센터{% endblock %}
+
+{% block head_extra %}
+  <script id="catalog-data" type="application/json">
+    {{ {
+        "doc_types": doc_types,
+        "doc_templates": doc_templates,
+        "roles": roles
+      } | tojson | safe }}
+  </script>
+{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <div class="hero-text">
+      <h1>AI 기반 결재 서류 사전 검토</h1>
+      <p>
+        규정 누락과 반려를 줄이기 위해 설계된 <strong>Smart Approval Desk</strong>입니다.
+        결재 서류와 첨부 자료를 업로드하면, 즉시 양식 적합성과 규정 준수 여부를 알려드립니다.
+      </p>
+    </div>
+    <div class="hero-card">
+      <ul>
+        <li><span>✔</span> 표준 결재 양식 구조 비교</li>
+        <li><span>✔</span> 규정 필수 항목/첨부 자동 점검</li>
+        <li><span>✔</span> Pass / 보완 필요 여부 실시간 표시</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="workspace">
+    <div class="form-panel">
+      <h2>결재 서류 시뮬레이션</h2>
+      <p class="panel-caption">
+        결재에 올릴 문서의 유형을 선택하고 DOCX 파일을 첨부해 주세요. 업로드된 파일은 저장되지 않고,
+        템플릿 대비 구조·규정 체크에만 사용됩니다.
+      </p>
+      <form id="validation-form" autocomplete="off">
+        <label class="doc-type-select">
+          문서 유형
+          <select name="doc_type" id="doc-type-select" required>
+            <option value="" disabled selected>문서 유형을 선택하세요</option>
+            {% for item in doc_types %}
+              <option value="{{ item.code }}">{{ item.label }}</option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <div id="upload-block" class="upload-block hidden">
+          <label class="file-drop" id="file-drop-zone">
+            <input type="file" id="doc-file" name="doc_file" accept=".docx" />
+            <span class="file-drop-text">
+              <strong>DOCX 파일을 끌어오거나 클릭하여 선택하세요.</strong>
+              <em id="selected-file-name">선택된 파일이 없습니다.</em>
+            </span>
+          </label>
+          <p class="assist-text">
+            ※ 규정 검토는 DOCX 형식으로만 지원됩니다. 템플릿과 동일하지 않으면 보완 필요 메시지가 표시됩니다.
+          </p>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="primary" id="submit-btn" disabled>규정 검토 실행</button>
+          <button type="button" class="ghost" id="reset-form">초기화</button>
+        </div>
+      </form>
+
+      <div id="template-guide" class="template-guide hidden">
+        <div class="guide-header">
+          <div>
+            <h3 id="guide-doc-name"></h3>
+            <p id="guide-summary"></p>
+          </div>
+        </div>
+        <div class="guide-body">
+          <div>
+            <h4>핵심 구성 항목</h4>
+            <ul id="guide-fields" class="guide-list"></ul>
+          </div>
+          <div>
+            <h4>필수 첨부 / 체크</h4>
+            <ul id="guide-attachments" class="guide-list"></ul>
+          </div>
+        </div>
+        <div id="guide-approvals-block" class="guide-sub hidden">
+          <h4>권장 결재선</h4>
+          <p id="guide-approvals"></p>
+        </div>
+        <div id="guide-notes-block" class="guide-sub hidden">
+          <h4>추가 메모</h4>
+          <ul id="guide-notes" class="guide-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <aside class="result-panel">
+      <div id="result-card" class="result-card hidden">
+        <div class="result-status">
+          <span class="status-pill"></span>
+          <h3 id="result-title">검토 결과</h3>
+          <p id="result-summary"></p>
+        </div>
+        <div class="result-meta">
+          <p>
+            <strong>업로드 파일</strong>
+            <span id="result-filename"></span>
+          </p>
+          <p>
+            <strong>문서 유형</strong>
+            <span id="result-type"></span>
+          </p>
+        </div>
+        <div id="result-details" class="result-details"></div>
+      </div>
+
+      <div id="result-placeholder" class="result-placeholder">
+        <h3>검토 대기 중</h3>
+        <p>
+          문서 유형을 선택하고 DOCX 파일을 첨부한 뒤 <strong>“규정 검토 실행”</strong>을 누르면
+          Pass / 보완 필요 여부가 여기에서 표시됩니다.
+        </p>
+      </div>
+    </aside>
+  </section>
+{% endblock %}

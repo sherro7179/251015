@@ -1,0 +1,45 @@
+{
+  "doc_no": "EXP-20251017-0001",
+  "doc_type": "EXR",
+  "dept_code": "MKT01",
+  "author_id": "u12345",
+  "title": "제품 출시 행사비 집행 품의",
+  "body": "행사 목적과 일정...",
+  "amount_total": 8000000,
+  "currency": "KRW",
+  "approval_chain": [
+    {
+      "role": "ROLE_LEAD",
+      "user_id": "u20001"
+    },
+    {
+      "role": "ROLE_HEAD",
+      "user_id": "u20002"
+    },
+    {
+      "role": "ROLE_FIN",
+      "user_id": "u30001"
+    },
+    {
+      "role": "ROLE_EXE",
+      "user_id": "u90001"
+    }
+  ],
+  "mandatory_review": [
+    "ROLE_FIN"
+  ],
+  "retention_years": 5,
+  "security_level": "사내",
+  "attachments": [
+    {
+      "filename": "견적서1.pdf",
+      "type": "quote",
+      "sha256": "..."
+    },
+    {
+      "filename": "견적서2.pdf",
+      "type": "quote",
+      "sha256": "..."
+    }
+  ]
+}
